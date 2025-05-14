@@ -41,9 +41,9 @@ public class doctor {
             while (res.next())
             {
                 int ids=res.getInt("id");
-                String names=res.getString("name");
+                String names= res.getString("name");
                 int ages=res.getInt("age");
-                String genders=res.getString("gender");
+                String genders=res.getString(gender);
 
 
                 System.out.printf("|%-9s|%-20s|%-10s|%-15s",ids,names,ages,genders);

@@ -19,6 +19,7 @@ public class Patient {
 
     public  void  addpatient()
     {
+        sc.nextLine();
         System.out.println("Enter the name");
         String name=sc.nextLine();
         System.out.println("Enter the age");
@@ -76,6 +77,7 @@ public class Patient {
 
 
               System.out.printf("|%-9s|%-20s|%-10s|%-15s",id,name,age,gender);
+              System.out.println();
               System.out.println("+--------+--------------+------+-----+---------+----------------+");
 
 
