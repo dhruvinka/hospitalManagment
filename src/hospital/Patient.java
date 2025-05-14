@@ -89,12 +89,9 @@ public class Patient {
     }
 
 
-    public boolean  getpationByid()
+    public boolean  getpationByid(int id)
     {
         sc.nextLine();
-        System.out.println("Enter the Id of Patient");
-        int id=sc.nextInt();
-
         try {
 
             String q="select * from p where id=?";
