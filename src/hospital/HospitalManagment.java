@@ -1,9 +1,6 @@
 package hospital;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.Scanner;
 import java.util.SortedMap;
 
@@ -91,6 +88,7 @@ public static void  bookappointment(Patient p,doctor d,Connection cn,Scanner sc)
     System.out.println("Enter the doctor id");
     int d_id=sc.nextInt();
     System.out.println("Enter the appointment date ");
+    sc.nextLine();
     String a_date=sc.nextLine();
 
 
@@ -99,18 +97,20 @@ public static void  bookappointment(Patient p,doctor d,Connection cn,Scanner sc)
 
         if (checkavailable(d_id,a_date,cn))
         {
+            String q="insert into appoinments(p_id,d_id,appoinment_date) values (?,?,?)";
 
             try {
 
-            String q="insert into appoinments(id,p_id,d_id,appoinment_date) values (?,?,?)";
             PreparedStatement pr= cn.prepareStatement(q);
             pr.setInt(1,id);
             pr.setInt(2,d_id);
-            pr.setString(3,a_date);
+            pr.setDate(3, Date.valueOf(a_date));
 
             int res=pr.executeUpdate();
+                System.out.println(res);
 
-            if (res>0)
+
+            if (res > 0 && checkavailable(d_id,a_date,cn))
             {
                 System.out.println("appoinments book successfully");
             }
@@ -121,13 +121,13 @@ public static void  bookappointment(Patient p,doctor d,Connection cn,Scanner sc)
             }
             catch (Exception e)
             {
-                System.out.println(e.getMessage());
+                System.out.println(e.getMessage()+"hoo");
             }
         }
 
         else
         {
-
+            System.out.println("please select another date for booking");
         }
 
 
@@ -147,7 +147,7 @@ public static   boolean checkavailable(int d_id,String app_date,Connection cn)
     try {
         PreparedStatement pr= cn.prepareStatement(q);
         pr.setInt(1,d_id);
-        pr.setString(2,app_date);
+        pr.setDate(2, Date.valueOf(app_date));
         ResultSet res=pr.executeQuery();
 
         if (res.next())

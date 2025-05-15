@@ -15,25 +15,17 @@ public class doctor {
 
 
     public void view_Doctor() {
-        System.out.println("Enter the name");
-        String name = sc.nextLine();
-        System.out.println("Enter the age");
-        int age = sc.nextInt();
-        System.out.println("Enter the patient gender");
-        String gender = sc.nextLine();
+         sc.nextLine();
 
         try {
 
             String query = "select * from d";
             PreparedStatement pr = cn.prepareStatement(query);
-            pr.setString(1, name);
-            pr.setInt(2, age);
-            pr.setString(3, gender);
             ResultSet res=pr.executeQuery();
 
-            System.out.println("Patients:");
+            System.out.println("Doctors:");
             System.out.println("+--------+--------------+------+-----+---------+----------------+");
-            System.out.println("| d_id     |name          |age   |gender");
+            System.out.println("| d_id     |name                |sp ");
             System.out.println("+--------+--------------+------+-----+---------+----------------+");
 
 
@@ -42,12 +34,12 @@ public class doctor {
             {
                 int ids=res.getInt("id");
                 String names= res.getString("name");
-                int ages=res.getInt("age");
-                String genders=res.getString(gender);
+                String genders=res.getString("sp");
 
 
-                System.out.printf("|%-9s|%-20s|%-10s|%-15s",ids,names,ages,genders);
-                System.out.println("+--------+--------------+------+-----+---------+----------------+");
+                System.out.printf("|%-9s|%-20s|%-15s",ids,names,genders);
+                System.out.println();
+                //.out.println("+--------+--------------+------+-----+---------+----------------+");
 
             }
 
